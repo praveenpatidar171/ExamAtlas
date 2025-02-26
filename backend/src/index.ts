@@ -9,22 +9,6 @@ import userRoutes from './routes/userRoutes'
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use(cors({
-    origin: 'https://exam-atlas-psi.vercel.app',  //    //use your local url of frontend in development
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true
-}));
-app.use(express.json());
-
-app.options('*', (req: Request, res: Response) => {
-    res.header("Access-Control-Allow-Origin", "https://exam-atlas-psi.vercel.app");
-    res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.sendStatus(200);
-    return;
-});
-
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://exam-atlas-psi.vercel.app");
     res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
@@ -39,6 +23,14 @@ app.use((req, res, next) => {
 
     next();
 });
+
+app.use(cors({
+    origin: 'https://exam-atlas-psi.vercel.app',  //    //use your local url of frontend in development
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
+}));
+
+app.use(express.json());
 
 app.use('/api/v1/user', userRoutes);
 

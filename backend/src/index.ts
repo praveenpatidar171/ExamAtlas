@@ -25,6 +25,21 @@ app.options('*', (req: Request, res: Response) => {
     return;
 });
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://exam-atlas-psi.vercel.app");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
+
+
+    if (req.method === "OPTIONS") {
+        res.sendStatus(200);
+        return
+    }
+
+    next();
+});
+
 app.use('/api/v1/user', userRoutes);
 
 app.listen(PORT, () => {

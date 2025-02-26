@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express'
+import express, { Request, Response } from 'express'
 import cors from 'cors'
 
 import userRoutes from './routes/userRoutes'
@@ -16,7 +16,14 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.options('*', cors());
+app.options('*', (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "https://exam-atlas-psi.vercel.app");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.sendStatus(200);
+    return;
+});
 
 app.use('/api/v1/user', userRoutes);
 

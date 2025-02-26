@@ -10,9 +10,13 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({
-    origin: 'https://exam-atlas-psi.vercel.app'   //use your local url of frontend in development
+    origin: 'https://exam-atlas-psi.vercel.app',  //    //use your local url of frontend in development
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
 }));
 app.use(express.json());
+
+app.options('*', cors());
 
 app.use('/api/v1/user', userRoutes);
 

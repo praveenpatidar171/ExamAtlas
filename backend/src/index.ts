@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({
-    origin: '*'
+    origin: 'https://exam-atlas-4drihbvp4-praveens-projects-627d0ef3.vercel.app'   //use your local url of frontend in development
 }));
 app.use(express.json());
 

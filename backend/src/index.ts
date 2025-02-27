@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from 'express'
 import cors from 'cors'
+import { VercelRequest, VercelResponse } from "@vercel/node";
 
 import userRoutes from './routes/userRoutes'
 
@@ -19,6 +20,13 @@ app.use(express.json());
 
 app.use('/api/v1/user', userRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-})
+
+
+export default function handler(req: VercelRequest, res: VercelResponse) {
+    return app(req, res);
+}
+
+
+// app.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`);
+// })
